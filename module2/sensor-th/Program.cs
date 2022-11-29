@@ -1,9 +1,4 @@
-﻿
-
-
-
-
-var config = new ConfigurationBuilder()
+﻿var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .AddUserSecrets<Program>()
     .Build();
@@ -34,5 +29,5 @@ Action<DeviceClient> send = async (DeviceClient device) => {
 var deviceClient = DeviceClient.CreateFromConnectionString(devicecs, TransportType.Mqtt);
 while(true) {
     send(deviceClient);
-    Thread.Sleep(5000);
+    await Task.Delay(1000);
 }
