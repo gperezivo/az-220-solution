@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/module3/IndividualDPS/sensor-thl.csproj",
+                "${workspaceFolder}/module3/GroupDPS/sensor-thl.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/module3/IndividualDPS/sensor-thl.csproj",
+                "${workspaceFolder}/module3/GroupDPS/sensor-thl.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/module3/IndividualDPS/sensor-thl.csproj"
+                "${workspaceFolder}/module3/GroupDPS/sensor-thl.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
