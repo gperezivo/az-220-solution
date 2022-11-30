@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/module2/sensor-th/bin/Debug/net7.0/sensor-th.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/module2/sensor-th",
+            "program": "${workspaceFolder}/module3/GroupDPS/bin/Debug/net7.0/sensor-thl.dll",
+            "args": ["--certificate=certs/sensor-thl-2000-device.cert.pfx"],
+            "cwd": "${workspaceFolder}/module3/GroupDPS",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
