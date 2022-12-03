@@ -62,7 +62,7 @@ await deviceClient.SetDesiredPropertyUpdateCallbackAsync(OnDesiredPropertyChange
 
 var twin = await deviceClient.GetTwinAsync().ConfigureAwait(false);
 log.LogInformation($"Initial twin properties: {twin.Properties}");
-await OnDesiredPropertyChanged(twin.Properties.Desired, null);
+await OnDesiredPropertyChanged(twin.Properties.Desired, null!).ConfigureAwait(false);
 
 
 while(true) {
@@ -70,7 +70,6 @@ while(true) {
     await Task.Delay(telemetryDelay * 1000);
 }
 
-await deviceClient.CloseAsync().ConfigureAwait(false);
 
 
 
