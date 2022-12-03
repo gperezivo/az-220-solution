@@ -1,28 +1,19 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Az220.Shared.Configuration;
 using Az220.Shared.Sensors;
-#region "Config"
-
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddUserSecrets<Program>()
     .Build();
-#endregion
-#region "Logging"
+
+
 var serviceCollection = new ServiceCollection()
     .AddCustomLogging()
     .BuildServiceProvider();
 var log = serviceCollection.GetRequiredService<ILogger<Program>>();
-#endregion
-#region "Sensor"
 var sensor = new ContainerSensor();
-
-#endregion
-#region "Load Device Provisioning Service (DPS) settings"
 var dpsConfig = config.GetIotConfiguration<Az220GroupDeviceProvisioningConfiguration>();
-#endregion
-
 var telemetryDelay = 1;
 
 #region "Certificate handling"

@@ -13,24 +13,19 @@ var serviceCollection = new ServiceCollection()
 var log = serviceCollection.GetRequiredService<ILogger<Program>>();
 #endregion
 
+var sensorConfig = config.GetIotConfiguration<Az200IndividualDeviceProvisioningConfiguration>();
 var sensor = new ContainerSensor();
 
 
 
-#region "Load Device Provisioning Service (DPS) settings"
-var registrationId = config.GetValue<string>("IndividualDPS:RegistrationId");
-var scopeId = config.GetValue<string>("IndividualDPS:ScopeId");
-var primaryKey = config.GetValue<string>("IndividualDPS:SymmetricKey:PrimaryKey");
-var secondaryKey = config.GetValue<string>("IndividualDPS:SymmetricKey:SecondaryKey");
-const string GlobalDeviceEndpoint = "global.azure-devices-provisioning.net";
-#endregion
 
 var telemetryDelay = 1;
 
-using var security = new SecurityProviderSymmetricKey(registrationId, primaryKey, secondaryKey);
+using var security = new SecurityProviderSymmetricKey(sensorConfig.RegistrationId, sensorConfig.PrimaryKey, sensorConfig.SecondaryKey);
 using var transport = new ProvisioningTransportHandlerAmqp(TransportFallbackType.TcpOnly);
 
-var provisioningClient = ProvisioningDeviceClient.Create(GlobalDeviceEndpoint, scopeId, security, transport);
+var provisioningClient = ProvisioningDeviceClient.Create(Az220DeviceConfiguration.GlobalDeviceEndpoint, sensorConfig.ScopeId, security, transport);
+
 var result = await provisioningClient.RegisterAsync().ConfigureAwait(false);
 
 log.LogInformation($"Provisioning AssignedHub: {result.AssignedHub}; DeviceID: {result.DeviceId}");
