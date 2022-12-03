@@ -1,34 +1,22 @@
-﻿#region "Config"
+﻿using Az220.Shared.Sensors;
+using Az220.Shared.Configuration;
+
+#region "Config"
 var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddUserSecrets<Program>()
+    .AddCustomConfiguration<Program>()
     .Build();
 #endregion
 #region "Logging"
 var serviceCollection = new ServiceCollection()
-    .AddLogging(builder=> builder.AddSerilog(
-        new LoggerConfiguration()
-            .WriteTo.Console()
-            .MinimumLevel.Debug()
-            .CreateLogger()
-    )).BuildServiceProvider();
+    .AddCustomLogging()
+    .BuildServiceProvider();
 var log = serviceCollection.GetRequiredService<ILogger<Program>>();
 #endregion
-#region "Sensor"
-var sensor = new Sensor();
-Action<DeviceClient> send = async (DeviceClient device) => {
-    var temp = sensor.Temperature;
-    var hum = sensor.Humidity;
-    var location = sensor.GetLocation;
-    var pressure = sensor.Pressure;
-    var message = new Message(Encoding.ASCII.GetBytes(CreateMessageString(temp,hum,location,pressure)));
-    message.Properties.Add("temperatureAlert", (temp > sensor.TemperatureThreshold) ? "true" : "false");
-    await device.SendEventAsync(message);
-    log.LogDebug($"Sent message: {temp}°C, {hum}%, {location}, {pressure}hPa");
-};
-string CreateMessageString(double temp, double hum, Sensor.Location location, double pressure) => 
-    JsonConvert.SerializeObject(new { temperature = temp, humidity = hum, location = location, pressure = pressure });
-#endregion
+
+var sensor = new ContainerSensor();
+
+
+
 #region "Load Device Provisioning Service (DPS) settings"
 var registrationId = config.GetValue<string>("IndividualDPS:RegistrationId");
 var scopeId = config.GetValue<string>("IndividualDPS:ScopeId");
@@ -83,7 +71,7 @@ await OnDesiredPropertyChanged(twin.Properties.Desired, null);
 
 
 while(true) {
-    send(deviceClient);
+    sensor.Send(deviceClient, log);
     await Task.Delay(telemetryDelay * 1000);
 }
 
