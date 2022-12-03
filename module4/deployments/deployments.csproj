@@ -5,6 +5,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>d709bb2d-11af-4c06-b184-babfa71cd5e6</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Az220.Shared.csproj" />
+  </ItemGroup>
 
 </Project>

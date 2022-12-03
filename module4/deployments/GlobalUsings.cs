@@ -10,5 +10,8 @@ global using Serilog;
 global using Microsoft.Azure.Devices.Provisioning.Client;
 global using Microsoft.Azure.Devices.Provisioning.Client.Transport;
 global using Microsoft.Azure.Devices.Shared;
+global using Az220.Shared.Configuration;
+global using Az220.Shared;
+global using Az220.Shared.Sensors;
 
 

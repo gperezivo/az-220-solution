@@ -6,6 +6,7 @@ namespace Az220.Shared
     {
         Message CreateMessage();
         Action<DeviceClient, ILogger?> Send {get;set;}
-
+        Message CreateLogMessage();
+        
     }
 }
