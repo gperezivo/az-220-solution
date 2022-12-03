@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "module2", "module2", "{DE670676-6C23-43EE-BF96-7BEC4BBE5FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sensor-th", "module2\sensor-th\sensor-th.csproj", "{BFB1F97D-EBC8-4CD8-9530-BEA0F96A16B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "module3", "module3", "{6C4824A8-C5CF-4010-917A-0120B65FD3AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sensor-thl-individual", "module3\IndividualDPS\sensor-thl.csproj", "{4165E838-BFC2-4F11-BF9D-EAEBA794AB50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sensor-thl-group", "module3\GroupDPS\sensor-thl.csproj", "{2E4C7EE5-6659-43F0-8BD1-B337292F46F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "module4", "module4", "{B132CB67-56A1-4D57-AD7D-8DE6420AD20F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "deployments", "module4\deployments\deployments.csproj", "{5FD4251C-B8BF-4634-9B35-8F37452AB32A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{4998164B-FFEF-4BF7-BC3D-0CD429D6BA76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "az220.shared", "shared\Az220.Shared.csproj", "{2872F139-B112-489D-9E28-7F16935F88FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFB1F97D-EBC8-4CD8-9530-BEA0F96A16B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB1F97D-EBC8-4CD8-9530-BEA0F96A16B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB1F97D-EBC8-4CD8-9530-BEA0F96A16B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB1F97D-EBC8-4CD8-9530-BEA0F96A16B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4165E838-BFC2-4F11-BF9D-EAEBA794AB50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4165E838-BFC2-4F11-BF9D-EAEBA794AB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4165E838-BFC2-4F11-BF9D-EAEBA794AB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4165E838-BFC2-4F11-BF9D-EAEBA794AB50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4C7EE5-6659-43F0-8BD1-B337292F46F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4C7EE5-6659-43F0-8BD1-B337292F46F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4C7EE5-6659-43F0-8BD1-B337292F46F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4C7EE5-6659-43F0-8BD1-B337292F46F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD4251C-B8BF-4634-9B35-8F37452AB32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD4251C-B8BF-4634-9B35-8F37452AB32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD4251C-B8BF-4634-9B35-8F37452AB32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD4251C-B8BF-4634-9B35-8F37452AB32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2872F139-B112-489D-9E28-7F16935F88FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2872F139-B112-489D-9E28-7F16935F88FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2872F139-B112-489D-9E28-7F16935F88FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2872F139-B112-489D-9E28-7F16935F88FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFB1F97D-EBC8-4CD8-9530-BEA0F96A16B0} = {DE670676-6C23-43EE-BF96-7BEC4BBE5FC8}
+		{4165E838-BFC2-4F11-BF9D-EAEBA794AB50} = {6C4824A8-C5CF-4010-917A-0120B65FD3AA}
+		{2E4C7EE5-6659-43F0-8BD1-B337292F46F3} = {6C4824A8-C5CF-4010-917A-0120B65FD3AA}
+		{5FD4251C-B8BF-4634-9B35-8F37452AB32A} = {B132CB67-56A1-4D57-AD7D-8DE6420AD20F}
+		{2872F139-B112-489D-9E28-7F16935F88FF} = {4998164B-FFEF-4BF7-BC3D-0CD429D6BA76}
+	EndGlobalSection
+EndGlobal

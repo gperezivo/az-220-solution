@@ -3,12 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>sensor_th</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <UserSecretsId>27e996e6-6711-486d-a573-40e2e4733264</UserSecretsId>
+    <UserSecretsId>d709bb2d-11af-4c06-b184-babfa71cd5e6</UserSecretsId>
   </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="../../shared/Az220.Shared.csproj" />
+    <ProjectReference Include="..\..\shared\Az220.Shared.csproj" />
   </ItemGroup>
+
 </Project>

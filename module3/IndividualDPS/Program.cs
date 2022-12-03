@@ -1,48 +1,31 @@
-﻿#region "Config"
+﻿using Az220.Shared.Sensors;
+using Az220.Shared.Configuration;
+
+#region "Config"
 var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddUserSecrets<Program>()
+    .AddCustomConfiguration<Program>()
     .Build();
 #endregion
 #region "Logging"
 var serviceCollection = new ServiceCollection()
-    .AddLogging(builder=> builder.AddSerilog(
-        new LoggerConfiguration()
-            .WriteTo.Console()
-            .MinimumLevel.Debug()
-            .CreateLogger()
-    )).BuildServiceProvider();
+    .AddCustomLogging()
+    .BuildServiceProvider();
 var log = serviceCollection.GetRequiredService<ILogger<Program>>();
 #endregion
-#region "Sensor"
-var sensor = new Sensor();
-Action<DeviceClient> send = async (DeviceClient device) => {
-    var temp = sensor.Temperature;
-    var hum = sensor.Humidity;
-    var location = sensor.GetLocation;
-    var pressure = sensor.Pressure;
-    var message = new Message(Encoding.ASCII.GetBytes(CreateMessageString(temp,hum,location,pressure)));
-    message.Properties.Add("temperatureAlert", (temp > sensor.TemperatureThreshold) ? "true" : "false");
-    await device.SendEventAsync(message);
-    log.LogDebug($"Sent message: {temp}°C, {hum}%, {location}, {pressure}hPa");
-};
-string CreateMessageString(double temp, double hum, Sensor.Location location, double pressure) => 
-    JsonConvert.SerializeObject(new { temperature = temp, humidity = hum, location = location, pressure = pressure });
-#endregion
-#region "Load Device Provisioning Service (DPS) settings"
-var registrationId = config.GetValue<string>("IndividualDPS:RegistrationId");
-var scopeId = config.GetValue<string>("IndividualDPS:ScopeId");
-var primaryKey = config.GetValue<string>("IndividualDPS:SymmetricKey:PrimaryKey");
-var secondaryKey = config.GetValue<string>("IndividualDPS:SymmetricKey:SecondaryKey");
-const string GlobalDeviceEndpoint = "global.azure-devices-provisioning.net";
-#endregion
+
+var sensorConfig = config.GetIotConfiguration<Az200IndividualDeviceProvisioningConfiguration>();
+var sensor = new ContainerSensor();
+
+
+
 
 var telemetryDelay = 1;
 
-using var security = new SecurityProviderSymmetricKey(registrationId, primaryKey, secondaryKey);
+using var security = new SecurityProviderSymmetricKey(sensorConfig.RegistrationId, sensorConfig.PrimaryKey, sensorConfig.SecondaryKey);
 using var transport = new ProvisioningTransportHandlerAmqp(TransportFallbackType.TcpOnly);
 
-var provisioningClient = ProvisioningDeviceClient.Create(GlobalDeviceEndpoint, scopeId, security, transport);
+var provisioningClient = ProvisioningDeviceClient.Create(Az220DeviceConfiguration.GlobalDeviceEndpoint, sensorConfig.ScopeId, security, transport);
+
 var result = await provisioningClient.RegisterAsync().ConfigureAwait(false);
 
 log.LogInformation($"Provisioning AssignedHub: {result.AssignedHub}; DeviceID: {result.DeviceId}");
@@ -79,15 +62,14 @@ await deviceClient.SetDesiredPropertyUpdateCallbackAsync(OnDesiredPropertyChange
 
 var twin = await deviceClient.GetTwinAsync().ConfigureAwait(false);
 log.LogInformation($"Initial twin properties: {twin.Properties}");
-await OnDesiredPropertyChanged(twin.Properties.Desired, null);
+await OnDesiredPropertyChanged(twin.Properties.Desired, null!).ConfigureAwait(false);
 
 
 while(true) {
-    send(deviceClient);
+    sensor.Send(deviceClient, log);
     await Task.Delay(telemetryDelay * 1000);
 }
 
-await deviceClient.CloseAsync().ConfigureAwait(false);
 
 
 
